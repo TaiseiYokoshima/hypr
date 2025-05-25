@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+choice=$(echo -e "Screen\nWindow\nArea" | dmenu -i -l 3 -p "Options:" )
+
+if [[ "$choice" == "Screen" ]]; then
+  gnome-screenshot -c --display=X
+elif [[ "$choice" == "Window" ]]; then
+  gnome-screenshot -c -w --display=X
+elif [[ "$choice" == "Area" ]]; then
+  gnome-screenshot -c -a --display=X
+fi
+
+
+
+

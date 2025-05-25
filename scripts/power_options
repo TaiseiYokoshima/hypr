@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+choice=$(echo -e "Suspend\nLog Out\nTurn Off\nRestart" | dmenu -i -l 4 -p "Options:" )
+
+confirm=$(echo -e "No\nYes" | dmenu -l 2 -p "Are you sure?:" )
+
+
+if [[ "$confirm" == "No" ]]; then 
+  echo "exiting"
+  exit
+fi
+
+if [[ "$choice" == "Suspend" ]]; then 
+  systemctl suspend
+elif [[ "$choice" == "Log Out" ]]; then 
+  i3-msg exit
+elif [[ "$choice" == "Turn Off" ]]; then 
+  shutdown -h now
+elif [[ "$choice" == "Restart" ]]; then 
+  reboot
+fi
+
+
+

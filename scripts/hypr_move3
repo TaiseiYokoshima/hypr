@@ -1,0 +1,23 @@
+#!/bin/bash 
+
+cmd=$1
+target=$2
+
+
+quit=$(hyprctl clients | grep "class")
+
+if [[ "$quit" == *"Rofi"* ]]; then
+  pkill rofi
+fi
+
+
+quit=$(hyprctl layers)
+
+if [[ "$quit" == *"swaync-control-center"* ]]; then
+  swaync-client -t
+fi
+
+
+hyprctl dispatch "$@"
+
+

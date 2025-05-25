@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+workspace_id=$(i3-msg -t get_workspaces | jq '.[] | select(.focused == true) | .id')
+i3-msg "[con_id=$workspace_id] focus"
+
+i3-msg focus child
+i3-msg focus child
+# i3-msg focus child
+i3-msg focus $1 
+
+
+

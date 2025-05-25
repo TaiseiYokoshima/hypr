@@ -1,0 +1,32 @@
+#!/bin/bash
+
+
+layout="$(i3-msg -t get_tree | jq -r 'recurse(.nodes[];.nodes!=null)|select(.nodes[].focused).layout')"
+
+if [[ "$layout" == "tabbed"  ||  "$layout" == "stacked" ]]; then
+  # echo "layout is tabbed or stacke, exiting"
+  exit
+fi
+
+if [[ "$layout" == "splith" && ("$1" == "up" || "$1" == "down") ]]; then 
+  # echo "can't go up and down in splith exiting"
+  exit
+fi
+
+if [[ "$layout" == "splitv" && ("$1" == "left" || "$1" == "right") ]]; then 
+  # echo "can't go left and right in splitv exiting"
+  exit
+fi
+
+
+current_id=$(i3-msg -t get_tree | jq '.. | select(type == "object" and .focused == true) | .id')
+
+i3-msg focus $1 
+
+new_layout="$(i3-msg -t get_tree | jq -r 'recurse(.nodes[];.nodes!=null)|select(.nodes[].focused).layout')"
+
+if [[ "$layout" == "$new_layout" ]]; then
+  exit
+fi
+
+i3-msg "[con_id=$current_id] focus"

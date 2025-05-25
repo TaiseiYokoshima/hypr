@@ -1,0 +1,9 @@
+#!/usr/bin/env bash 
+
+pkill $menu_cmd
+swaync-client -cp
+
+
+hyprctl dispatch "$@"
+
+
